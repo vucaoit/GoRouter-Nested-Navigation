@@ -7,6 +7,7 @@ class MainWrapper extends StatefulWidget {
     required this.navigationShell,
     super.key,
   });
+
   final StatefulNavigationShell navigationShell;
 
   @override
@@ -23,41 +24,33 @@ class _MainWrapperState extends State<MainWrapper> {
     );
   }
 
+  Widget buildTabIndex(String title, String route, int index) {
+    return TextButton(
+        onPressed: () {
+          _goBranch(index);
+        },
+        child: Text(title));
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SizedBox(
-        width: double.infinity,
-        height: double.infinity,
-        child: widget.navigationShell,
-      ),
-      floatingActionButton: FloatingActionButton(
-          onPressed: () {
-            context.push(context.namedLocation('Player'));
-          },
-          backgroundColor: Colors.deepPurpleAccent,
-          child: const Icon(Icons.play_arrow)),
-      bottomNavigationBar: SlidingClippedNavBar(
-        backgroundColor: Colors.white,
-        onButtonPressed: (index) {
-          setState(() {
-            selectedIndex = index;
-          });
-          _goBranch(selectedIndex);
-        },
-        iconSize: 30,
-        activeColor: Colors.black,
-        selectedIndex: selectedIndex,
-        barItems: [
-          BarItem(
-            icon: Icons.home,
-            title: 'Home',
-          ),
-          BarItem(
-            icon: Icons.settings,
-            title: 'Settings',
-          ),
-        ],
+      body: SafeArea(
+        child: Column(
+          children: [
+            Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                buildTabIndex("Social", "", 0),
+                buildTabIndex("Booking", "", 1),
+                buildTabIndex("Notification", "", 2),
+                buildTabIndex("Watch", "", 3),
+                buildTabIndex("MegaMenu", "", 4),
+              ],
+            ),
+            Expanded(child: widget.navigationShell)
+          ],
+        ),
       ),
     );
   }

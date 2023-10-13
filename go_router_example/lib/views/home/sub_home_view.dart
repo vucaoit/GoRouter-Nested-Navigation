@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 class SubHomeView extends StatefulWidget {
   const SubHomeView({super.key});
@@ -19,12 +20,17 @@ class _SubHomeViewState extends State<SubHomeView> {
         width: double.infinity,
         height: double.infinity,
         child: ListView.builder(itemBuilder: (context, index) {
-          return Card(
-            child: ListTile(
-              leading: Text(
-                index.toString(),
+          return InkWell(
+            onTap: (){
+              context.push("/settings");
+            },
+            child: Card(
+              child: ListTile(
+                leading: Text(
+                  index.toString(),
+                ),
+                title: Text("Home Item no. $index"),
               ),
-              title: Text("Home Item no. $index"),
             ),
           );
         }),
